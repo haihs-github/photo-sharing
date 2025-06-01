@@ -7,7 +7,7 @@ import {
   Box,
   Paper,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import fetchModel from "../../lib/fetchModelData";
 import TopBar from "../TopBar";
 
@@ -16,6 +16,15 @@ function UserPhotos() {
   const userId = params.userId;
   const [photos, setPhotos] = useState([]);
   const [user, setUser] = useState([]);
+  const navigate = useNavigate();
+
+  const checkLogin = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }
+  checkLogin();
 
   useEffect(() => {
     fetchModel(`http://localhost:8081/api/user/${userId}`)

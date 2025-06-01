@@ -1,14 +1,26 @@
 import { useState, useEffect } from "react";
 import { Typography, Card, CardContent, Button } from "@mui/material";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import fetchModel from "../../lib/fetchModelData";
 import TopBar from "../TopBar";
+
 
 function UserDetail() {
   const params = useParams();
   const userId = params.userId;
   const [user, setUsers] = useState({});
+
+  const navigate = useNavigate();
+
+  const checkLogin = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }
+  checkLogin();
+
   useEffect(() => {
     fetchModel(`http://localhost:8081/api/user/${userId}`)
       .then((data) => {

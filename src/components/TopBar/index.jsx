@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 import "./styles.css";
 import fetchModel from "../../lib/fetchModelData";
@@ -11,6 +12,11 @@ function TopBar() {
   const pageType = location.pathname.split("/")[1];
 
   const [user, setUser] = useState({});
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = jwtDecode(token);
+    console.log("Giải mã token:", decoded);
+  }
 
   useEffect(() => {
     if (userId) {
@@ -24,9 +30,13 @@ function TopBar() {
     }
   }, [userId]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  }
+
   let contextText = "";
   if (pageType === "users" && user) {
-    contextText = `Username ${user.last_name}`;
+    contextText = `Userdetail: ${user.last_name}`;
   } else if (pageType === "photos") {
     contextText = `Photos of ${user.last_name}`;
   }
@@ -40,6 +50,14 @@ function TopBar() {
         <Typography variant="h6" color="inherit">
           {contextText}
         </Typography>
+        {token ? <Typography variant="h6" color="inherit">
+          <Link to="/login"><button onClick={handleLogout}>logout</button></Link>
+        </Typography>
+          : <Typography variant="h6" color="inherit">
+            <Link to="/login"><button>login</button></Link>
+            <Link to="/register"><button>register</button></Link>
+          </Typography>}
+
       </Toolbar>
     </AppBar>
   );

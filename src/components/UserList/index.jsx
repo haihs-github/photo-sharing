@@ -7,22 +7,39 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./styles.css";
 import fetchModel from "../../lib/fetchModelData";
 import TopBar from "../TopBar";
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate(); // <-- Sửa lỗi ở đây: Sử dụng hook useNavigate()
+
+  const checkLogin = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }
+  checkLogin();
+
   useEffect(() => {
+    // Di chuyển logic kiểm tra đăng nhập vào useEffect
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+
     fetchModel(`http://localhost:8081/api/user/list`)
       .then((data) => {
         setUsers(data.users);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
+        // Xử lý lỗi fetch data, có thể điều hướng hoặc hiển thị thông báo
       });
-  }, [])
+  }, [navigate]); // Thêm navigate vào dependency array
 
   return (
     <div className="user-list-container">
@@ -50,8 +67,6 @@ function UserList() {
           ))}
         </List>
       </Paper>
-
-
     </div>
   );
 }

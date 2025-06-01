@@ -1,0 +1,114 @@
+/* Login Container */
+.login-container {
+	background-color: #ffffff;
+	/* White background for the form */
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	/* Soft shadow */
+	width: 100%;
+	max-width: 400px;
+	/* Max width for better responsiveness */
+	text-align: center;
+}
+
+/* Heading */
+.login-container h2 {
+	margin-bottom: 30px;
+	color: #333333;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+/* Form Group (for labels and inputs) */
+.login-container form div {
+	margin-bottom: 20px;
+	/* Spacing between form fields */
+	text-align: left;
+	/* Align labels and inputs to the left */
+}
+
+/* Labels */
+.login-container label {
+	display: block;
+	/* Make label take full width */
+	margin-bottom: 8px;
+	color: #555555;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+/* Input Fields */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+	width: calc(100% - 20px);
+	/* Full width minus padding */
+	padding: 12px 10px;
+	border: 1px solid #dddddd;
+	border-radius: 6px;
+	font-size: 16px;
+	color: #333333;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+	border-color: #007bff;
+	/* Highlight on focus */
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+	outline: none;
+	/* Remove default outline */
+}
+
+/* Error Message */
+.login-container p[style="color: red;"] {
+	color: #dc3545 !important;
+	/* Ensure red color for error */
+	margin-top: -10px;
+	/* Adjust spacing */
+	margin-bottom: 20px;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+/* Submit Button */
+.login-container button[type="submit"] {
+	width: 100%;
+	padding: 14px;
+	background-color: #007bff;
+	/* Blue button */
+	color: #ffffff;
+	border: none;
+	border-radius: 6px;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	margin-top: 20px;
+}
+
+.login-container button[type="submit"]:hover {
+	background-color: #0056b3;
+	/* Darker blue on hover */
+	transform: translateY(-2px);
+	/* Slight lift effect */
+}
+
+.login-container button[type="submit"]:active {
+	background-color: #004085;
+	/* Even darker on click */
+	transform: translateY(0);
+}
+
+/* Link (if you add a register link later) */
+.login-container .link {
+	display: block;
+	margin-top: 20px;
+	color: #007bff;
+	text-decoration: none;
+	font-size: 15px;
+}
+
+.login-container .link:hover {
+	text-decoration: underline;
+}

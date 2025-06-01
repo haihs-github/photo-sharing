@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserDetail from "./components/UserDetail";
 import UserList from "./components/UserList";
 import UserPhotos from "./components/UserPhotos";
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 const App = (props) => {
   return (
@@ -30,6 +32,14 @@ const App = (props) => {
                 <Route
                   path="/photos/:userId"
                   element={<UserPhotos />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/register"
+                  element={<Register />}
                 />
                 <Route path="/users" element={<UserList />} />
               </Routes>
