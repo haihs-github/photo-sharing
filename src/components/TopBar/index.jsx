@@ -23,7 +23,7 @@ function TopBar(location, params) {
 
   return (
     <AppBar className="topbar-appBar" position="absolute">
-      <Toolbar sx={{ display: "flex", justifyContent: "space-around", width: "100%" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* Bên trái: Tên của bạn */}
         <Typography variant="h6" color="inherit">
           Hoàng Sơn Hải
