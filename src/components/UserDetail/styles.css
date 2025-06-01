@@ -1,0 +1,16 @@
+.user-detail-container {}
+
+.user-card {
+	max-width: 600px;
+	padding: 2rem;
+	border-radius: 16px;
+	background-color: #ffffff;
+}
+
+.user-info {
+	margin-bottom: 1rem;
+}
+
+.see-photo-button {
+	margin-top: 2rem;
+}

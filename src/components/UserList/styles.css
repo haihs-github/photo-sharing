@@ -1,0 +1,22 @@
+.user-list-container {}
+
+.user-list-paper {
+	max-width: 600px;
+	background-color: #ffffff;
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.user-list-item {
+	transition: background-color 0.3s ease;
+}
+
+.user-list-item:hover {
+	background-color: #e0f7fa;
+}
+
+.user-list-footer {
+	text-align: center;
+	margin-top: 2rem;
+	color: #777;
+}
