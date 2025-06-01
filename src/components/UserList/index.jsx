@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Divider,
   List,
@@ -7,19 +7,29 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import models from "../../modelData/models";
 import { Link } from "react-router-dom";
 import "./styles.css";
+import fetchModel from "../../lib/fetchModelData";
+import TopBar from "../TopBar";
 
 function UserList() {
-  const users = models.userListModel();
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetchModel(`http://localhost:8081/api/user/list`)
+      .then((data) => {
+        setUsers(data.users);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [])
 
   return (
     <div className="user-list-container">
+      <TopBar />
       <Typography variant="h4" gutterBottom>
         User List
       </Typography>
-
       <Paper elevation={3} className="user-list-paper">
         <List>
           {users.map((user) => (
@@ -31,7 +41,7 @@ function UserList() {
                 className="user-list-item"
               >
                 <ListItemText
-                  primary={`${user.first_name} ${user.last_name}`}
+                  primary={`${user.last_name}`}
                   secondary={`Click to view details`}
                 />
               </ListItem>

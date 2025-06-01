@@ -1,25 +1,49 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   Card,
   CardContent,
   CardMedia,
-  Divider,
   Box,
   Paper,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import models from "../../modelData/models";
+import fetchModel from "../../lib/fetchModelData";
+import TopBar from "../TopBar";
 
 function UserPhotos() {
   const params = useParams();
-  const photos = models.photoOfUserModel(params.userId);
-  const user = models.userModel(params.userId);
+  const userId = params.userId;
+  const [photos, setPhotos] = useState([]);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    fetchModel(`http://localhost:8081/api/user/${userId}`)
+      .then((data) => {
+        console.log('data.user', data.user);
+        setUser(data.user);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [userId])
+
+  useEffect(() => {
+    fetchModel(`http://localhost:8081/api/photo/photosOfUser/${userId}`)
+      .then((data) => {
+        console.log('data.photos', data.photos);
+        setPhotos(data.photos);
+      })
+      .catch((error) => {
+        console.error("Error fetching photos data:", error);
+      });
+  }, [userId])
 
   return (
     <Box sx={{ padding: 3 }}>
+      <TopBar />
       <Typography variant="h5" gutterBottom>
-        {user.first_name}'s Photos
+        {user.last_name}'s Photos
       </Typography>
 
       {photos.map((photo, index) => (
@@ -55,7 +79,8 @@ function UserPhotos() {
                     {new Date(comment.date_time).toLocaleString()}
                   </Typography>
                   <Typography variant="subtitle2" fontWeight="bold">
-                    {comment.user.first_name} {comment.user.last_name}
+                    {comment.user_id.last_name}
+                    {console.log('comment.user_id', comment.user_id.last_name)}
                   </Typography>
                   <Typography variant="body2">{comment.comment}</Typography>
                 </Paper>

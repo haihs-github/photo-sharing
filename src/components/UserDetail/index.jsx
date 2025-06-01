@@ -1,23 +1,35 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Typography, Card, CardContent, Button } from "@mui/material";
 import { useParams, Link } from "react-router-dom";
-import models from "../../modelData/models";
-import "./styles.css"; // Gợi ý: dùng SCSS hoặc module CSS để dễ quản lý
+import "./styles.css";
+import fetchModel from "../../lib/fetchModelData";
+import TopBar from "../TopBar";
 
 function UserDetail() {
   const params = useParams();
-  const user = models.userModel(params.userId);
+  const userId = params.userId;
+  const [user, setUsers] = useState({});
+  useEffect(() => {
+    fetchModel(`http://localhost:8081/api/user/${userId}`)
+      .then((data) => {
+        setUsers(data.user);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [userId])
 
   return (
     <div className="user-detail-container">
+      <TopBar />
       <Card className="user-card" elevation={3}>
         <CardContent>
           <Typography variant="h4" gutterBottom>
-            About {user.first_name}
+            About
           </Typography>
 
           <Typography variant="body1" className="user-info">
-            <strong>Fullname:</strong> {user.first_name} {user.last_name}
+            <strong>Fullname:</strong> {user.last_name}
           </Typography>
 
           <Typography variant="body1" className="user-info">
