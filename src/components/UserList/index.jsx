@@ -16,14 +16,6 @@ function UserList() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate(); // <-- Sửa lỗi ở đây: Sử dụng hook useNavigate()
 
-  const checkLogin = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-  }
-  checkLogin();
-
   useEffect(() => {
     // Di chuyển logic kiểm tra đăng nhập vào useEffect
     const token = localStorage.getItem("token");
@@ -31,7 +23,9 @@ function UserList() {
       navigate("/login");
     }
 
-    fetchModel(`http://localhost:8081/api/user/list`)
+    fetchModel(`http://localhost:8081/api/user/list`, {
+      Authorization: `Bearer ${token}`, // Sử dụng token từ localStorage
+    })
       .then((data) => {
         setUsers(data.users);
       })

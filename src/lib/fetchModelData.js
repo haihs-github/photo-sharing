@@ -4,9 +4,12 @@
  * @param {string} url The URL to issue the GET request.
  * @returns {Promise<Object>} JSON data from the server.
  */
-async function fetchModel(url) {
+async function fetchModel(url, headers = {}) {
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

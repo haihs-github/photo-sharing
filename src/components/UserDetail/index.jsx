@@ -22,7 +22,9 @@ function UserDetail() {
   checkLogin();
 
   useEffect(() => {
-    fetchModel(`http://localhost:8081/api/user/${userId}`)
+    fetchModel(`http://localhost:8081/api/user/${userId}`, {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    })
       .then((data) => {
         setUsers(data.user);
       })

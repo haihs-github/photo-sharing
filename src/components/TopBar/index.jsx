@@ -15,12 +15,14 @@ function TopBar() {
   const token = localStorage.getItem("token");
   if (token) {
     const decoded = jwtDecode(token);
-    console.log("Giải mã token:", decoded);
+    console.log("Decoded token:", decoded);
   }
 
   useEffect(() => {
     if (userId) {
-      fetchModel(`http://localhost:8081/api/user/${userId}`)
+      fetchModel(`http://localhost:8081/api/user/${userId}`, {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      })
         .then((data) => {
           setUser(data.user);
         })
