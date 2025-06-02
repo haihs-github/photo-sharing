@@ -81,11 +81,10 @@ function UserPhotos() {
         <Card key={index} sx={{ marginBottom: 3 }}>
           <CardMedia
             component="img"
-            image={`/${photo.file_name}`}
+            image={photo.file_name.startsWith('http') ? photo.file_name : `/${photo.file_name}`}
             alt={photo.file_name}
             sx={{ maxHeight: 400, objectFit: "contain", backgroundColor: "#eee" }}
           />
-
           <CardContent>
             <Typography variant="body2" color="text.secondary" gutterBottom>
               <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>

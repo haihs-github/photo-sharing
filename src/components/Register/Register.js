@@ -35,7 +35,7 @@ function Register() {
 				formData
 			);
 			console.log("Register successfull:", response.data);
-			navigate("/login"); // chuyển hướng về trang chính sau khi đăng nhập
+			navigate("/login"); // chuyển hướng về trang chính sau khi đăng ký
 		} catch (err) {
 			setError("error when register");
 			console.error(err);

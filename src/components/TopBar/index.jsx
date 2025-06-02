@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { useParams, useLocation, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 import "./styles.css";
 import fetchModel from "../../lib/fetchModelData";
+
 
 function TopBar() {
   const location = useLocation();
@@ -13,9 +14,10 @@ function TopBar() {
 
   const [user, setUser] = useState({});
   const token = localStorage.getItem("token");
+
+  let decoded = {};
   if (token) {
-    const decoded = jwtDecode(token);
-    console.log("Decoded token:", decoded);
+    decoded = jwtDecode(token);
   }
 
   useEffect(() => {
@@ -34,6 +36,7 @@ function TopBar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    window.location.href = "/login";
   }
 
   let contextText = "";
@@ -52,14 +55,52 @@ function TopBar() {
         <Typography variant="h6" color="inherit">
           {contextText}
         </Typography>
-        {token ? <Typography variant="h6" color="inherit">
-          <Link to="/login"><button onClick={handleLogout}>logout</button></Link>
-        </Typography>
-          : <Typography variant="h6" color="inherit">
-            <Link to="/login"><button>login</button></Link>
-            <Link to="/register"><button>register</button></Link>
-          </Typography>}
-
+        {token ? (
+          <Typography variant="h6" color="inherit" component="span"> {/* component="span" để tránh lỗi nesting block elements */}
+            Hi {decoded?.login_name}!
+            {/* Nút "Add Photo" */}
+            <Button
+              component={Link} // Sử dụng Link từ react-router-dom
+              to="/upload"
+              variant="contained" // Kiểu nút chứa nền
+              color="secondary" // Màu sắc (có thể là primary, secondary, success, error, info, warning)
+              sx={{ ml: 2 }} // margin-left 2 đơn vị
+            >
+              Add Photo
+            </Button>
+            {/* Nút "Logout" */}
+            <Button
+              onClick={handleLogout}
+              variant="outlined" // Kiểu nút viền
+              color="inherit" // Màu kế thừa từ AppBar (thường là trắng)
+              sx={{ ml: 2 }} // margin-left 2 đơn vị
+            >
+              Logout
+            </Button>
+          </Typography>
+        ) : (
+          <Box> {/* Dùng Box để nhóm 2 nút Login/Register */}
+            {/* Nút "Login" */}
+            <Button
+              component={Link}
+              to="/login"
+              variant="contained"
+              color="primary"
+              sx={{ mr: 1 }} // margin-right 1 đơn vị
+            >
+              Login
+            </Button>
+            {/* Nút "Register" */}
+            <Button
+              component={Link}
+              to="/register"
+              variant="outlined"
+              color="inherit"
+            >
+              Register
+            </Button>
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );

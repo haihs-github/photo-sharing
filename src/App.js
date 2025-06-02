@@ -8,6 +8,7 @@ import UserList from "./components/UserList";
 import UserPhotos from "./components/UserPhotos";
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Upload from './components/Upload/Upload';
 
 const App = (props) => {
   return (
@@ -40,6 +41,10 @@ const App = (props) => {
                 <Route
                   path="/register"
                   element={<Register />}
+                />
+                <Route
+                  path="/upload"
+                  element={<Upload />}
                 />
                 <Route path="/users" element={<UserList />} />
               </Routes>

@@ -14,13 +14,13 @@ import TopBar from "../TopBar";
 
 function UserList() {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate(); // <-- Sửa lỗi ở đây: Sử dụng hook useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Di chuyển logic kiểm tra đăng nhập vào useEffect
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+      return
     }
 
     fetchModel(`http://localhost:8081/api/user/list`, {
